@@ -50,7 +50,7 @@ namespace Skaillz.EditInline
                 return;
             }
 
-            expand = EditorGUI.Foldout(new Rect(position.x, position.y, position.x + 10f, position.height), expand, "");
+            expand = EditorGUI.Foldout(new Rect(position.x, position.y, position.x + 10f, position.height), true, "");
 
             if (!expand)
                 return;
@@ -58,9 +58,12 @@ namespace Skaillz.EditInline
             EditorGUI.indentLevel++;
             property.serializedObject.Update();
             Editor.CreateCachedEditor(property.objectReferenceValue, null, ref editor);
-            editor.OnInspectorGUI();
+		
+			editor.OnInspectorGUI();
             property.serializedObject.ApplyModifiedProperties();
-        }
+
+			EditorGUI.indentLevel--;
+		}
 
         public bool HasEditor(Object obj)
         {

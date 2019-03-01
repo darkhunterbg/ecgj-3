@@ -30,12 +30,14 @@ namespace Assets.Code
 			var offset = Motion.GetStepOffset(_elapsed);
 
 			transform.position = _startingPos + new Vector3(offset.x, offset.y) ;
+
 		}
 
 
 
 		public void OnCollision(Collider2D collision)
 		{
+			_elapsed = 0;
 		}
 	}
 }
