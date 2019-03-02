@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7782325f3c67eb94783782b493882011, type: 3}
   m_Name: SinDiscMotionDef
   m_EditorClassIdentifier: 
-  Scale: {x: 1.09, y: 3.66}
+  Scale: {x: 1.09, y: 2.2}

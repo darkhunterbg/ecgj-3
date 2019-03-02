@@ -21,6 +21,7 @@ namespace Assets.Code
 		private void Start()
 		{
 			_startingPos = transform.position;
+
 		}
 
 		public void FixedUpdate()
