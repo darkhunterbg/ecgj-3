@@ -1,3 +1,4 @@
+using Assets.Code.Motions;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,14 +11,12 @@ namespace Assets.Code
 		[Range(0, 1000)]
 		public int Projections = 0;
 
-		public float ProjectionStep = 0.1f;
+		public float ProjectionTime = 1.0f;
 
 		private bool _updateProj = true;
 
 		public Transform ProjectionsRoot;
 		public GameObject ProjectionsVisuals;
-
-		private DiscMotionDef _motion;
 
 		public void Start()
 		{
@@ -52,13 +51,8 @@ namespace Assets.Code
 				if (disc.Motion == null)
 					return;
 
-				if (disc.Motion != _motion) {
-					_motion = disc.Motion;
+				if (disc.Motion.DetectChanges()) {
 					_updateProj = true;
-				}
-				else if (disc.Motion.Dirty) {
-					_updateProj = true;
-					disc.Motion.Dirty = false;
 				}
 			}
 
@@ -74,10 +68,12 @@ namespace Assets.Code
 				if (disc.Motion == null)
 					return;
 
+				float step = ProjectionTime / Projections;
+
 				for (int i = 1; i <= Projections; ++i) {
 					var projection = (GameObject)PrefabUtility.InstantiatePrefab(ProjectionsVisuals, SceneManager.GetActiveScene());
 					projection.transform.SetParent(ProjectionsRoot);
-					var offset = disc.Motion.GetStepOffset(ProjectionStep * i);
+					var offset = disc.Motion.GetStepOffset(step * i);
 
 					projection.transform.position += new Vector3(offset.x, offset.y, 0);
 				}

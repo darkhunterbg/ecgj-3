@@ -1,3 +1,4 @@
+using Assets.Code.Motions;
 using Skaillz.EditInline;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,7 @@ namespace Assets.Code
 {
 	public class Disc : MonoBehaviour, ICollisionReciever
 	{
-		[EditInline]
-		public DiscMotionDef Motion;
+		public DiscMotionBlender Motion;
 
 		private float _elapsed = 0.0f;
 		private Vector3 _startingPos;
@@ -45,10 +45,14 @@ namespace Assets.Code
 
 			_elapsed += Time.fixedDeltaTime * Velocity;
 
-			var offset = Motion.GetStepOffset(_elapsed);
+			var offset = GetStepOffset(_elapsed);
 
 			transform.position = _startingPos + new Vector3(offset.x, offset.y) ;
+		}
 
+		public Vector2 GetStepOffset(float time)
+		{
+			return Motion.GetStepOffset(time);
 		}
 
 

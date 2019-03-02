@@ -10,14 +10,12 @@ namespace Assets.Code.Motions
 	[CreateAssetMenu(fileName = "SinDiscMotionDef", menuName = "Disc Motions/SinDiscMotionDef")]
 	public class SinDiscMotionDef : DiscMotionDef
 	{
-		public Vector2 Scale = Vector2.one;
-
 		public override Vector2 GetStepOffset(float time)
 		{
-			float x =  time;
+			float x = 2.0f * time * Mathf.PI;
 
 			float y = Mathf.Sin(x);
-			return new Vector2(x, y) * Scale;
+			return new Vector2(x, y) / (2.0f * Mathf.PI);
 		}
 	}
 }
