@@ -37,6 +37,7 @@ namespace Assets.Code
 			InsideZones.Remove(zone);
 		}
 
+
 		public void Update()
 		{
 			if (!transform.hasChanged)

@@ -11,6 +11,13 @@ namespace Assets.Code
 	{
 		public BoxCollider2D Collider;
 
+		public SpriteRenderer Visuals;
+
+		public void SetVisualsVisible(bool visible)
+		{
+			Visuals.enabled = visible;
+		}
+
 		//public List<PlacableObstacle> InsidePlacables { get; private set; } = new List<PlacableObstacle>();
 
 

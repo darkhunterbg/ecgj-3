@@ -17,6 +17,8 @@ namespace Assets.Code
 
 		public PlacableDetector Detector;
 
+		public PlacableObstacle Prefab;
+
 		public void SetSnapping(float range)
 		{
 			Snapping = range;

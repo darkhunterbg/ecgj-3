@@ -22,6 +22,9 @@ namespace Assets.Code
 		private Disc _disc;
 
 		public Transform PlacableObstaclesParent;
+		public Transform PlacableZonesParent;
+
+		public IEnumerable<PlacableZone> PlacableZones => PlacableZonesParent.GetComponentsInChildren<PlacableZone>();
 
 		public int RemainingObstacles => 3 - PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().Count();
 
@@ -32,30 +35,46 @@ namespace Assets.Code
 		public void Start()
 		{
 			_disc = FindObjectOfType<Disc>();
-			_disc.ResetDisc();
-
-			GameView.Instance.ObstacleModule.Show();
-			GameView.Instance.ToolBar.Show();
+		
 
 		}
 
-		public void SimulateDisc()
-		{
-			GameView.Instance.ToolBar.Hide();
-			_disc.ResetDisc();
-			_disc.Play(() =>
-			{
-				_disc.ResetDisc();
-				GameView.Instance.ToolBar.Show();
-			});
-		}
 
 		public void StartDisc()
 		{
+			RunDisc(null);
+		}
+		public void SimulateDisc()
+		{
+			RunDisc(Setup);
+		}
+
+		private void Setup()
+		{
+			_disc.ResetDisc();
+
+			foreach (var zone in PlacableZones) {
+				zone.SetVisualsVisible(true);
+			}
+
+			GameView.Instance.ObstacleModule.Show();
+			GameView.Instance.ToolBar.Show();
+		}
+
+
+		private void RunDisc(Action callback)
+		{
 			GameView.Instance.ObstacleModule.Hide();
 			GameView.Instance.ToolBar.Hide();
+
+			foreach (var zone in PlacableZones) {
+				zone.SetVisualsVisible(false);
+			}
+
 			_disc.ResetDisc();
-			_disc.Play(null);
+			_disc.Play(callback);
 		}
+
+
 	}
 }

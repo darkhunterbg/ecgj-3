@@ -9,6 +9,8 @@ namespace Assets.Code.UI
 	{
 		public PlacableObstacle Preview;
 
+		private PlacableObstacle _previewPrefab;
+
 		public float Snapping = 1.0f;
 
 		void Start()
@@ -22,6 +24,8 @@ namespace Assets.Code.UI
 				GameObject.Destroy(Preview.gameObject);
 				Preview = null;
 			}
+
+			_previewPrefab = prefab;
 
 			if (prefab != null) {
 				Preview = GameObject.Instantiate(prefab);
@@ -75,17 +79,30 @@ namespace Assets.Code.UI
 
 			if (eventData.button == PointerEventData.InputButton.Left) {
 
-				if (!Preview.Detector.CanBePlaced)
-					return;
+				if (Preview == null) {
+					var worldPos = Camera.main.ScreenToWorldPoint(eventData.position);
+					RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero, 10, 1);
+					if (hit.collider != null && hit.collider.GetComponentInParent<PlacableObstacle>()) {
+						var obstacle = hit.collider.GetComponentInParent<PlacableObstacle>();
+						UseObstacle(obstacle.Prefab);
+						GameObject.Destroy(hit.collider.gameObject);
+					}
+				}
 
-				var obstacle = GameObject.Instantiate(Preview, Level.Instance.PlacableObstaclesParent);
-				obstacle.Visual.color = Color.white;
-				obstacle.Collider.enabled = true;
-				obstacle.Detector.gameObject.SetActive(false);
-				obstacle.name = "PlacableObstacle";
+				else {
+					if (!Preview.Detector.CanBePlaced)
+						return;
 
-				if (Level.Instance.CanStartGame)
-					UseObstacle(null);
+					var obstacle = GameObject.Instantiate(Preview, Level.Instance.PlacableObstaclesParent);
+					obstacle.Visual.color = Color.white;
+					obstacle.Collider.enabled = true;
+					obstacle.Detector.gameObject.SetActive(false);
+					obstacle.name = "PlacableObstacle";
+					obstacle.Prefab = _previewPrefab;
+
+					if (Level.Instance.CanStartGame)
+						UseObstacle(null);
+				}
 			}
 			else if (eventData.button == PointerEventData.InputButton.Right) {
 				if (Preview != null) {
