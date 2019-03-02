@@ -15,8 +15,14 @@ namespace Assets.Code
 
 		public List<PlacableZone> InsideZones { get; private set; } = new List<PlacableZone>();
 
+		private bool _collideWithOtherDetector;
+
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
+			if (collision.GetComponentInParent<PlacableDetector>()) {
+				_collideWithOtherDetector = true;
+			}
+
 			PlacableZone zone = collision.GetComponentInParent<PlacableZone>();
 			if (zone == null)
 				return;
@@ -30,6 +36,10 @@ namespace Assets.Code
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
+			if (collision.GetComponentInParent<PlacableDetector>()) {
+				_collideWithOtherDetector = false;
+			}
+
 			PlacableZone zone = collision.GetComponentInParent<PlacableZone>();
 			if (zone == null)
 				return;
@@ -38,14 +48,20 @@ namespace Assets.Code
 		}
 
 
+
 		public void Update()
 		{
 			if (!transform.hasChanged)
 				return;
 
+
 			transform.hasChanged = false;
 
 			CanBePlaced = false;
+
+
+			if (_collideWithOtherDetector)
+				return;
 
 
 			foreach (var zone in InsideZones) {

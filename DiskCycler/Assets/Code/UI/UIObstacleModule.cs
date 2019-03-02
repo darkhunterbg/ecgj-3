@@ -31,9 +31,8 @@ namespace Assets.Code.UI
 				Preview = GameObject.Instantiate(prefab);
 				Preview.name = "Preview";
 				Preview.SetSnapping(Snapping);
-				Preview.gameObject.SetActive(true);
-				Preview.Visual.color *= 0.75f;
 				Preview.Collider.enabled = false;
+				Preview.Visual.sortingOrder += 1;
 			}
 
 			Cursor.visible = Preview == null;
@@ -93,11 +92,10 @@ namespace Assets.Code.UI
 					if (!Preview.Detector.CanBePlaced)
 						return;
 
-					var obstacle = GameObject.Instantiate(Preview, Level.Instance.PlacableObstaclesParent);
-					obstacle.Visual.color = Color.white;
-					obstacle.Collider.enabled = true;
-					obstacle.Detector.gameObject.SetActive(false);
-					obstacle.name = "PlacableObstacle";
+					var obstacle = GameObject.Instantiate(_previewPrefab, Level.Instance.PlacableObstaclesParent);
+
+					obstacle.transform.position = Preview.transform.position;
+					//obstacle.Detector.gameObject.SetActive(false);
 					obstacle.Prefab = _previewPrefab;
 
 					if (Level.Instance.CanStartGame)
