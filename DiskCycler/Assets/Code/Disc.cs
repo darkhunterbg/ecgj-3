@@ -18,14 +18,31 @@ namespace Assets.Code
 
 		public float Velocity = 10;
 
+		private bool _play = false;
+
+		private Action _collisionCallback;
+
 		private void Start()
 		{
 			_startingPos = transform.position;
+		}
 
+		public void Play(Action collisionCallback)
+		{
+			_play = true;
+			_collisionCallback = collisionCallback;
+		}
+		public void ResetDisc()
+		{
+			_elapsed = 0;
+			transform.position = _startingPos;
 		}
 
 		public void FixedUpdate()
 		{
+			if (!_play)
+				return;
+
 			_elapsed += Time.fixedDeltaTime * Velocity;
 
 			var offset = Motion.GetStepOffset(_elapsed);
@@ -35,10 +52,11 @@ namespace Assets.Code
 		}
 
 
-
 		public void OnCollision(Collider2D collision)
 		{
-			_elapsed = 0;
+			_collisionCallback?.Invoke();
+			_collisionCallback = null;
+			_play = false;
 		}
 	}
 }
