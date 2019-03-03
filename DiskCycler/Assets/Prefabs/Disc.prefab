@@ -117,7 +117,15 @@ MonoBehaviour:
   TrailFX: {fileID: 6632590766947434203}
   DeathFX: {fileID: 6632590767311662650}
   Visuals: {fileID: 7782195335677252396}
+  MaxVelocity: 1
+  MinVelocity: 0.05
   Velocity: 1
+  VelocityRecoveryRate: 100
+  MaxEnergy: 100
+  Energy: 100
+  EnergyCostSecond: 200
+  EnergyRecoverySecond: 25
+  IsSlowdownActive: 0
 --- !u!114 &6632590766504886910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1438,8 +1446,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 0}
+        key0: {r: 0, g: 1, b: 0.9176471, a: 1}
+        key1: {r: 0, g: 1, b: 0.9176471, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1454,9 +1462,9 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 27756
+        atime0: 0
         atime1: 65535
-        atime2: 0
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0

@@ -477,6 +477,16 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7984416163894980655, guid: b86ae9361b90b5a498c872079c971abf,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.099975586
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689203804373749351, guid: b86ae9361b90b5a498c872079c971abf,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b86ae9361b90b5a498c872079c971abf, type: 3}
 --- !u!224 &8031315717183177929 stripped

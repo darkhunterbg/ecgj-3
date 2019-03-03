@@ -46,7 +46,11 @@ namespace Assets.Code.UI
 
 			Cursor.visible = Preview == null;
 
+			SetZones();
+		}
 
+		private void SetZones()
+		{
 			foreach (var zone in Level.Instance.PlacableZones) {
 				bool visible = Preview != null && zone.CanPlace(Preview.Type);
 
@@ -57,17 +61,13 @@ namespace Assets.Code.UI
 			}
 		}
 
-
-
 		public void Show()
 		{
 			gameObject.SetActive(true);
 			if (Preview != null)
 				Preview.gameObject.SetActive(true);
 
-			foreach (var zone in Level.Instance.PlacableZones) {
-				zone.SetVisualsVisible(Preview != null);
-			}
+			SetZones();
 		}
 		public void Hide()
 		{
@@ -77,9 +77,7 @@ namespace Assets.Code.UI
 
 			Cursor.visible = true;
 
-			foreach (var zone in Level.Instance.PlacableZones) {
-				zone.SetVisualsVisible(false);
-			}
+			SetZones();
 		}
 
 		public void Update()
