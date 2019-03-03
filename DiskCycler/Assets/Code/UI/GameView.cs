@@ -15,12 +15,13 @@ namespace Assets.Code.UI
 		public UIToolBar ToolBar;
 
 		public UIModal DiscDestroyedModal;
+		public UIModal DiscEscapedModal;
+		public UIModal TutorialModal;
 
 		private List<UIModal> _modals = new List<UIModal>();
 
 		public void Start()
 		{
-			HideAllModals();
 		}
 
 
@@ -33,6 +34,11 @@ namespace Assets.Code.UI
 		public void RestartLevel()
 		{
 			Level.Instance.RestartLevel();
+		}
+
+		public void NextLevel()
+		{
+			GameController.Instance.EndLevel();
 		}
 	}
 }

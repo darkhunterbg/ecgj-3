@@ -45,11 +45,17 @@ namespace Assets.Code.UI
 			gameObject.SetActive(false);
 		}
 
-		public void Update()
+		public void UpdateState()
 		{
 			StartButton.interactable = Level.Instance.CanStartGame;
 			ObstacleButton.interactable = !Level.Instance.CanStartGame;
+			SimulateButton.interactable = Level.Instance.SimCharges > 0;
 			ObstaclesCountText.text = $"x { Level.Instance.RemainingObstacles}";
+		}
+
+		public void Update()
+		{
+			UpdateState();
 		}
 	}
 }

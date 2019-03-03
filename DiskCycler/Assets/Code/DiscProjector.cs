@@ -20,7 +20,7 @@ namespace Assets.Code
 
 		public void Start()
 		{
-			if(Application.isPlaying) {
+			if (Application.isPlaying) {
 				Cleanup();
 				enabled = false;
 			}
@@ -56,10 +56,14 @@ namespace Assets.Code
 				}
 			}
 
+
+
 			if (_updateProj) {
 				Cleanup();
 
 				_updateProj = false;
+
+#if UNITY_EDITOR
 
 				if (Application.isPlaying)
 					return;
@@ -75,8 +79,9 @@ namespace Assets.Code
 					projection.transform.SetParent(ProjectionsRoot);
 					var offset = disc.Motion.GetStepOffset(step * i);
 
-					projection.transform.position += new Vector3(offset.x, offset.y, 0);
+					projection.transform.position = disc.transform.position + new Vector3(offset.x, offset.y, 0);
 				}
+#endif
 			}
 		}
 	}

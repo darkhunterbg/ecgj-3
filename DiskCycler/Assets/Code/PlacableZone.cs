@@ -11,11 +11,11 @@ namespace Assets.Code
 	{
 		public BoxCollider2D Collider;
 
-		public SpriteRenderer Visuals;
+		public GameObject Visuals;
 
 		public void SetVisualsVisible(bool visible)
 		{
-			Visuals.enabled = visible;
+			Visuals.gameObject.SetActive(visible);
 		}
 
 		//public List<PlacableObstacle> InsidePlacables { get; private set; } = new List<PlacableObstacle>();

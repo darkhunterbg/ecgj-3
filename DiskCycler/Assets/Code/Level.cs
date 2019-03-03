@@ -27,7 +27,12 @@ namespace Assets.Code
 
 		public IEnumerable<PlacableZone> PlacableZones => PlacableZonesParent.GetComponentsInChildren<PlacableZone>();
 
-		public int RemainingObstacles => 3 - PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().Count();
+		public int RemainingObstacles => StartingObstacles - PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().Count();
+
+		public int StartingSimCharges = 1;
+		public int StartingObstacles = 3;
+		public int SimCharges = 0;
+		public bool IsTutorial = false;
 
 		public bool CanStartGame => RemainingObstacles == 0;
 
@@ -35,19 +40,44 @@ namespace Assets.Code
 
 		public void Start()
 		{
+			SimCharges = StartingSimCharges;
+
 			_disc = FindObjectOfType<Disc>();
+			_disc.Init();
+			_disc.ResetDisc();
+			
+
+			GameView.Instance.HideAllModals();
+
+
+			if (IsTutorial) {
+				GameView.Instance.TutorialModal.Show();
+				GameView.Instance.ObstacleModule.Hide();
+				GameView.Instance.ToolBar.Hide();
+			}
+			else {
+				GameView.Instance.ObstacleModule.Show();
+				GameView.Instance.ToolBar.Show();
+			}
 		}
 
 		public void StartDisc()
 		{
-			RunDisc(()=>
+			RunDisc((Collider2D collider) =>
 			{
-				StartCoroutine(GameOver());
+				if (collider.gameObject.GetComponentInParent<ExitZone>())
+					StartCoroutine(DiscEscaped());
+				else
+					StartCoroutine(GameOver());
 			});
 		}
 		public void SimulateDisc()
 		{
-			RunDisc(Setup);
+			--SimCharges;
+			RunDisc((Collider2D collider) =>
+			{
+				Setup();
+			});
 		}
 
 		private void Setup()
@@ -67,8 +97,16 @@ namespace Assets.Code
 
 			GameView.Instance.DiscDestroyedModal.Show();
 		}
+		public IEnumerator DiscEscaped()
+		{
+			_disc.Stop();
 
-		private void RunDisc(Action callback)
+			yield return new WaitForSeconds(1.0f);
+
+			GameView.Instance.DiscEscapedModal.Show();
+		}
+
+		private void RunDisc(Action<Collider2D> callback)
 		{
 			GameView.Instance.ObstacleModule.Hide();
 			GameView.Instance.ToolBar.Hide();
@@ -80,10 +118,11 @@ namespace Assets.Code
 
 		public void RestartLevel()
 		{
-			foreach(var obstacle in PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().ToArray()) {
+			foreach (var obstacle in PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().ToArray()) {
 				GameObject.Destroy(obstacle.gameObject);
 			}
 
+			SimCharges = StartingSimCharges;
 			GameView.Instance.HideAllModals();
 			Setup();
 		}

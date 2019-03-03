@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Assets.Code
 {
+	[DefaultExecutionOrder(-200)]
 	public class Disc : MonoBehaviour, ICollisionReciever
 	{
 		public DiscMotionBlender Motion;
@@ -23,22 +24,30 @@ namespace Assets.Code
 
 		private bool _play = false;
 
-		private Action _collisionCallback;
+		private Action<Collider2D> _collisionCallback;
 
-		private void Start()
+		public void Init()
 		{
 			_startingPos = transform.position;
 		}
 
-		public void Play(Action collisionCallback)
+		public void Play(Action<Collider2D> collisionCallback)
 		{
 			TrailFX?.Play();
 
 			   _play = true;
 			_collisionCallback = collisionCallback;
 		}
+		public void Stop()
+		{
+
+			TrailFX?.Stop();
+			_play = false;
+		}
 		public void ResetDisc()
 		{
+			_play = false;
+
 			Visuals.enabled = true;
 			DeathFX?.Stop();
 			DeathFX?.Clear();
@@ -52,8 +61,10 @@ namespace Assets.Code
 
 		public void Kill()
 		{
+			_play = false;
 			Visuals.enabled = false;
 			DeathFX?.Play();
+			TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 		}
 
 		public void FixedUpdate()
@@ -75,13 +86,9 @@ namespace Assets.Code
 
 
 		public void OnCollision(Collider2D collision)
-		{
-			TrailFX?.Stop();
-		
-
-			_collisionCallback?.Invoke();
+		{ 
+			_collisionCallback?.Invoke(collision);
 			_collisionCallback = null;
-			_play = false;
 		}
 	}
 }
