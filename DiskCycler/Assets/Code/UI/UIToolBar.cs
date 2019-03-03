@@ -13,6 +13,7 @@ namespace Assets.Code.UI
 		public Button StartButton;
 		public Button ObstacleButton;
 		public Button SimulateButton;
+		public Text ObstaclesCountText;
 
 		public PlacableObstacle ObstaclePrefab;
 
@@ -37,7 +38,7 @@ namespace Assets.Code.UI
 		{
 			gameObject.SetActive(true);
 
-	
+
 		}
 		public void Hide()
 		{
@@ -48,6 +49,7 @@ namespace Assets.Code.UI
 		{
 			StartButton.interactable = Level.Instance.CanStartGame;
 			ObstacleButton.interactable = !Level.Instance.CanStartGame;
+			ObstaclesCountText.text = $"x { Level.Instance.RemainingObstacles}";
 		}
 	}
 }

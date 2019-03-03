@@ -13,5 +13,26 @@ namespace Assets.Code.UI
 
 		public UIObstacleModule ObstacleModule;
 		public UIToolBar ToolBar;
+
+		public UIModal DiscDestroyedModal;
+
+		private List<UIModal> _modals = new List<UIModal>();
+
+		public void Start()
+		{
+			HideAllModals();
+		}
+
+
+		public void HideAllModals()
+		{
+			foreach (var modal in GetComponentsInChildren<UIModal>(includeInactive: true))
+				modal.Hide();
+		}
+
+		public void RestartLevel()
+		{
+			Level.Instance.RestartLevel();
+		}
 	}
 }

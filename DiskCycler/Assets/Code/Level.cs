@@ -1,5 +1,6 @@
 using Assets.Code.UI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,14 +36,14 @@ namespace Assets.Code
 		public void Start()
 		{
 			_disc = FindObjectOfType<Disc>();
-		
-
 		}
-
 
 		public void StartDisc()
 		{
-			RunDisc(_disc.Kill);
+			RunDisc(()=>
+			{
+				StartCoroutine(GameOver());
+			});
 		}
 		public void SimulateDisc()
 		{
@@ -53,28 +54,38 @@ namespace Assets.Code
 		{
 			_disc.ResetDisc();
 
-			foreach (var zone in PlacableZones) {
-				zone.SetVisualsVisible(true);
-			}
-
 			GameView.Instance.ObstacleModule.Show();
 			GameView.Instance.ToolBar.Show();
 		}
 
+
+		public IEnumerator GameOver()
+		{
+			_disc.Kill();
+
+			yield return new WaitForSeconds(2.0f);
+
+			GameView.Instance.DiscDestroyedModal.Show();
+		}
 
 		private void RunDisc(Action callback)
 		{
 			GameView.Instance.ObstacleModule.Hide();
 			GameView.Instance.ToolBar.Hide();
 
-			foreach (var zone in PlacableZones) {
-				zone.SetVisualsVisible(false);
-			}
 
 			_disc.ResetDisc();
 			_disc.Play(callback);
 		}
 
+		public void RestartLevel()
+		{
+			foreach(var obstacle in PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().ToArray()) {
+				GameObject.Destroy(obstacle.gameObject);
+			}
 
+			GameView.Instance.HideAllModals();
+			Setup();
+		}
 	}
 }
