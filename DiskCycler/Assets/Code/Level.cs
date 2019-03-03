@@ -27,14 +27,16 @@ namespace Assets.Code
 
 		public IEnumerable<PlacableZone> PlacableZones => PlacableZonesParent.GetComponentsInChildren<PlacableZone>();
 
-		public int RemainingObstacles => StartingObstacles - PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().Count();
+		public int RemainingObstacles => StartingObstacles - PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().Count(p=>p.Type== ObstacleType.Obstacle);
+		public int RemainingLasers => StartingLasers - PlacableObstaclesParent.GetComponentsInChildren<PlacableObstacle>().Count(p => p.Type == ObstacleType.Laser);
 
 		public int StartingSimCharges = 1;
 		public int StartingObstacles = 3;
+		public int StartingLasers = 0;
 		public int SimCharges = 0;
 		public bool IsTutorial = false;
 
-		public bool CanStartGame => RemainingObstacles == 0;
+		public bool CanStartGame => RemainingObstacles == 0 && RemainingLasers == 0;
 
 		public static Level Instance => FindObjectOfType<Level>();
 

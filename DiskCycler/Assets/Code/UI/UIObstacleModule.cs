@@ -13,6 +13,9 @@ namespace Assets.Code.UI
 
 		public float Snapping = 1.0f;
 
+		public Color InvalidColor = Color.red;
+		public Color ValidColor = Color.green;
+
 		void Start()
 		{
 			Show();
@@ -32,14 +35,25 @@ namespace Assets.Code.UI
 				Preview.name = "Preview";
 				Preview.SetSnapping(Snapping);
 				Preview.Collider.enabled = false;
-				Preview.Visual.sortingOrder += 1;
+				Preview.Visual.sortingOrder += 2;
+
+				if (Preview.PlacableVisual != null) {
+					Preview.PlacableVisual.gameObject.SetActive(true);
+					Preview.PlacableVisual.sortingOrder += 2;
+				}
+
 			}
 
 			Cursor.visible = Preview == null;
 
 
 			foreach (var zone in Level.Instance.PlacableZones) {
-				zone.SetVisualsVisible(!Cursor.visible);
+				bool visible = Preview != null && zone.CanPlace(Preview.Type);
+
+				zone.SetVisualsVisible(visible);
+				if (Preview != null) {
+					zone.SetPlaceMode(Preview.Type);
+				}
 			}
 		}
 
@@ -78,8 +92,13 @@ namespace Assets.Code.UI
 			worldPos.z = 0;
 			Preview.SetGridPosition(worldPos);
 
-			Preview.Visual.color = Preview.Detector.CanBePlaced ? Color.white : Color.red;
+			Preview.Visual.color = Preview.Detector.CanBePlaced ? Color.white : InvalidColor;
 			Preview.Visual.color *= 0.75f;
+
+			if (Preview.PlacableVisual != null) {
+				Preview.PlacableVisual.color = Preview.Detector.CanBePlaced ? ValidColor : InvalidColor;
+				Preview.PlacableVisual.color *= 0.5f;
+			}
 
 
 		}
@@ -108,13 +127,27 @@ namespace Assets.Code.UI
 						return;
 
 					var obstacle = GameObject.Instantiate(_previewPrefab, Level.Instance.PlacableObstaclesParent);
-
+					if (obstacle.PlacableVisual != null) {
+						obstacle.PlacableVisual.gameObject.SetActive(false);
+					}
 					obstacle.transform.position = Preview.transform.position;
+					obstacle.transform.rotation = Preview.transform.rotation;
 					//obstacle.Detector.gameObject.SetActive(false);
 					obstacle.Prefab = _previewPrefab;
 
-					if (Level.Instance.CanStartGame)
-						UseObstacle(null);
+					switch (obstacle.Type) {
+						case ObstacleType.Laser: {
+								if (Level.Instance.RemainingLasers == 0)
+									UseObstacle(null);
+							}
+							break;
+
+						case ObstacleType.Obstacle: {
+								if (Level.Instance.RemainingObstacles == 0)
+									UseObstacle(null);
+							}
+							break;
+					}
 				}
 			}
 			else if (eventData.button == PointerEventData.InputButton.Right) {

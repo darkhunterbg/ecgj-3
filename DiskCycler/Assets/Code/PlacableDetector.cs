@@ -17,6 +17,13 @@ namespace Assets.Code
 
 		private bool _collideWithOtherDetector;
 
+		private PlacableObstacle _obstacle;
+
+		public void Start()
+		{
+			_obstacle = GetComponentInParent<PlacableObstacle>();
+		}
+
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
 			if (collision.GetComponentInParent<PlacableDetector>()) {
@@ -47,8 +54,6 @@ namespace Assets.Code
 			InsideZones.Remove(zone);
 		}
 
-
-
 		public void Update()
 		{
 			if (!transform.hasChanged)
@@ -70,11 +75,25 @@ namespace Assets.Code
 				bool inside = (collider.bounds.Contains(Collider.bounds.min)
 				&& collider.bounds.Contains(Collider.bounds.max));
 
-				if (inside) {
-					CanBePlaced = true;
-					return;
+				if (inside ) {
+					if (zone.CanPlace(_obstacle.Type)) {
+						CanBePlaced = true;
+						UpdateOrientation(zone.FlipOrientation);
+						return;
+					}
 				}
 			}
+
+			UpdateOrientation(false);
+		}
+
+		public void UpdateOrientation(bool flip)
+		{
+			if (flip) {
+				_obstacle.transform.rotation = Quaternion.Euler(0, 0, 180);
+			}
+			else
+				_obstacle.transform.rotation = Quaternion.identity;
 		}
 	}
 }

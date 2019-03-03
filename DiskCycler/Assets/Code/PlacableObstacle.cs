@@ -7,17 +7,27 @@ using UnityEngine;
 
 namespace Assets.Code
 {
+	public enum ObstacleType
+	{
+		Obstacle ,
+		Laser ,
+	}
+
 	[ExecuteInEditMode]
 	public class PlacableObstacle : MonoBehaviour
 	{
 		public float Snapping { get; private set; } = 0.0f;
 
 		public SpriteRenderer Visual;
+		public SpriteRenderer PlacableVisual;
 		public Collider2D Collider;
 
 		public PlacableDetector Detector;
+		public PlacableLaser Laser;
 
 		public PlacableObstacle Prefab;
+
+		public ObstacleType Type;
 
 		public void SetSnapping(float range)
 		{
@@ -50,6 +60,6 @@ namespace Assets.Code
 			}
 		}
 
-	
+
 	}
 }

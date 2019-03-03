@@ -50,3 +50,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Preview: {fileID: 0}
   Snapping: 0.5
+  InvalidColor: {r: 1, g: 0.0141509175, b: 0.8321188, a: 1}
