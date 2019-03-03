@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlueExplosion
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: b8dbac50bc1230b4bbfc3c57e8898698, type: 3}
+    - {fileID: 2800000, guid: d1dea5d7238ae4247ac1436985f56b6f, type: 3}
+    - {fileID: 2800000, guid: 43b656c6f610e4341b953aba1816f28b, type: 3}
+    - {fileID: 2800000, guid: 2acb2011e28cce8459dd3c8cca22e6de, type: 3}
+    - {fileID: 2800000, guid: 077ed3f648504254aa2b38d7008b3da3, type: 3}
+    - {fileID: 2800000, guid: c5fa439e82f0ddd45bb146a953d19e81, type: 3}
+    - {fileID: 2800000, guid: 6a35bae631cbe984499636491f3da3fb, type: 3}
+    - {fileID: 2800000, guid: 1d68758c6bab687488c2a320edc10c75, type: 3}
+    - {fileID: 2800000, guid: 5f6b6bac4440b8749bf75d15142c37ca, type: 3}
+    - {fileID: 2800000, guid: 476c757dd3f3f9b4fbfd1b690121fea6, type: 3}
+    - {fileID: 2800000, guid: 11b3a4ecfd385f142952db827e36b0e4, type: 3}
+    - {fileID: 2800000, guid: 788600774ae8c424aa6a9ca06a8438c3, type: 3}
+    - {fileID: 2800000, guid: b0aa02834473ae1439d46c55dbb03e9e, type: 3}
+    - {fileID: 2800000, guid: 3cab5988e6f39d2429993bd5cd568c5d, type: 3}
+    - {fileID: 2800000, guid: 18f5be4c82e39ba44a0ae27c8ecaf188, type: 3}
+    - {fileID: 2800000, guid: 904898db1dabcab4d9c3d638b68c5316, type: 3}
+    - {fileID: 2800000, guid: a2b7dd562abb894409f8ca2543c36d9d, type: 3}
+    totalSpriteSurfaceArea: 1114112
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b8dbac50bc1230b4bbfc3c57e8898698, type: 3}
+  - {fileID: 21300000, guid: 2acb2011e28cce8459dd3c8cca22e6de, type: 3}
+  - {fileID: 21300000, guid: b0aa02834473ae1439d46c55dbb03e9e, type: 3}
+  - {fileID: 21300000, guid: a2b7dd562abb894409f8ca2543c36d9d, type: 3}
+  - {fileID: 21300000, guid: 43b656c6f610e4341b953aba1816f28b, type: 3}
+  - {fileID: 21300000, guid: 6a35bae631cbe984499636491f3da3fb, type: 3}
+  - {fileID: 21300000, guid: 077ed3f648504254aa2b38d7008b3da3, type: 3}
+  - {fileID: 21300000, guid: 788600774ae8c424aa6a9ca06a8438c3, type: 3}
+  - {fileID: 21300000, guid: d1dea5d7238ae4247ac1436985f56b6f, type: 3}
+  - {fileID: 21300000, guid: 3cab5988e6f39d2429993bd5cd568c5d, type: 3}
+  - {fileID: 21300000, guid: 904898db1dabcab4d9c3d638b68c5316, type: 3}
+  - {fileID: 21300000, guid: 18f5be4c82e39ba44a0ae27c8ecaf188, type: 3}
+  - {fileID: 21300000, guid: 1d68758c6bab687488c2a320edc10c75, type: 3}
+  - {fileID: 21300000, guid: 5f6b6bac4440b8749bf75d15142c37ca, type: 3}
+  - {fileID: 21300000, guid: 11b3a4ecfd385f142952db827e36b0e4, type: 3}
+  - {fileID: 21300000, guid: 476c757dd3f3f9b4fbfd1b690121fea6, type: 3}
+  - {fileID: 21300000, guid: c5fa439e82f0ddd45bb146a953d19e81, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 1_0
+  - 1_3
+  - 1_12
+  - 1_16
+  - 1_2
+  - 1_6
+  - 1_4
+  - 1_11
+  - 1_1
+  - 1_13
+  - 1_15
+  - 1_14
+  - 1_7
+  - 1_8
+  - 1_10
+  - 1_9
+  - 1_5
+  m_Tag: BlueExplosion
+  m_IsVariant: 0

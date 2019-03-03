@@ -12,6 +12,9 @@ namespace Assets.Code
 	public class Disc : MonoBehaviour, ICollisionReciever
 	{
 		public DiscMotionBlender Motion;
+		public ParticleSystem TrailFX;
+		public ParticleSystem DeathFX;
+		public SpriteRenderer Visuals;
 
 		private float _elapsed = 0.0f;
 		private Vector3 _startingPos;
@@ -29,13 +32,28 @@ namespace Assets.Code
 
 		public void Play(Action collisionCallback)
 		{
-			_play = true;
+			TrailFX?.Play();
+
+			   _play = true;
 			_collisionCallback = collisionCallback;
 		}
 		public void ResetDisc()
 		{
+			Visuals.enabled = true;
+			DeathFX?.Stop();
+			DeathFX?.Clear();
+			TrailFX?.Stop();
+			TrailFX?.Clear();
+
+
 			_elapsed = 0;
 			transform.position = _startingPos;
+		}
+
+		public void Kill()
+		{
+			Visuals.enabled = false;
+			DeathFX?.Play();
 		}
 
 		public void FixedUpdate()
@@ -58,6 +76,9 @@ namespace Assets.Code
 
 		public void OnCollision(Collider2D collision)
 		{
+			TrailFX?.Stop();
+		
+
 			_collisionCallback?.Invoke();
 			_collisionCallback = null;
 			_play = false;

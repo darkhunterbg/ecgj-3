@@ -15,11 +15,8 @@ namespace Assets.Code.Motions
 		public Vector2 Scale = Vector2.one;
 		public int Cycles = 1;
 
-		public float SpeedMod = 1.0f;
-
 		private DiscMotionDef _def;
 		private Vector2 _scale;
-		private float _speedMod = 1.0f;
 		private int _cycles = 1;
 
 		public Vector2 GetStepOffset(float time)
@@ -47,11 +44,6 @@ namespace Assets.Code.Motions
 
 			if (_cycles != Cycles) {
 				_cycles = Cycles;
-				changed = true;
-			}
-
-			if (_speedMod != SpeedMod) {
-				_speedMod = SpeedMod;
 				changed = true;
 			}
 

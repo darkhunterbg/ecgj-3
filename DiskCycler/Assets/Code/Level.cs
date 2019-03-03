@@ -42,7 +42,7 @@ namespace Assets.Code
 
 		public void StartDisc()
 		{
-			RunDisc(null);
+			RunDisc(_disc.Kill);
 		}
 		public void SimulateDisc()
 		{
