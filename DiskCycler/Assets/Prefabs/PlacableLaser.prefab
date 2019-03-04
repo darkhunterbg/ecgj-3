@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootingInterval: 0.5
+  ShootingDuration: 0.4
   ShootingFX: {fileID: 9062768785112373903}
 --- !u!1 &4895538395698662864
 GameObject:

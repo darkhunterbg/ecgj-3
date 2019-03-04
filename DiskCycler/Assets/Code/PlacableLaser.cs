@@ -11,9 +11,9 @@ namespace Assets.Code
 	public class PlacableLaser : MonoBehaviour
 	{
 		public float ShootingInterval;
+		public float ShootingDuration;
 
 		public GameObject ShootingFX;
-
 
 		private Coroutine _shootingCrt;
 
@@ -42,7 +42,7 @@ namespace Assets.Code
 
 			while (true) {
 				ShootingFX.SetActive(true);
-				yield return new WaitForSeconds(0.5f);
+				yield return new WaitForSeconds(ShootingDuration);
 				ShootingFX.SetActive(false);
 				yield return new WaitForSeconds(ShootingInterval );
 			}

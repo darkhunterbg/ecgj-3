@@ -123,7 +123,7 @@ MonoBehaviour:
   VelocityRecoveryRate: 100
   MaxEnergy: 100
   Energy: 100
-  EnergyCostSecond: 200
+  EnergyCostSecond: 150
   EnergyRecoverySecond: 25
   IsSlowdownActive: 0
 --- !u!114 &6632590766504886910
