@@ -9471,6 +9471,7 @@ GameObject:
   - component: {fileID: 6632590766504886911}
   - component: {fileID: 6632590766504886785}
   - component: {fileID: 6632590766504886910}
+  - component: {fileID: 3899980517078209945}
   m_Layer: 0
   m_Name: Disc
   m_TagString: Untagged
@@ -9514,6 +9515,7 @@ MonoBehaviour:
       Cycles: 1
   TrailFX: {fileID: 6632590766947434203}
   DeathFX: {fileID: 6632590767311662650}
+  Animator: {fileID: 3899980517078209945}
   SimColor: {r: 0.38039216, g: 1, b: 0.41960785, a: 0}
   FailColor: {r: 1, g: 0.4575472, b: 0.4575472, a: 1}
   SimTrailFX: {fileID: 6183062995260810516}
@@ -9545,6 +9547,25 @@ MonoBehaviour:
   ProjectionsRoot: {fileID: 6632590765526617430}
   ProjectionsVisuals: {fileID: 8404576139797604949, guid: f723f41e74e47404998923192f6e104a,
     type: 3}
+--- !u!95 &3899980517078209945
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6632590766504886908}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 484582e1b5f00f04ba59ba727f37c03b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6632590766947434198
 GameObject:
   m_ObjectHideFlags: 0
@@ -19017,6 +19038,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2261499225814410911, guid: f723f41e74e47404998923192f6e104a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2261499225814410911, guid: f723f41e74e47404998923192f6e104a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f723f41e74e47404998923192f6e104a, type: 3}

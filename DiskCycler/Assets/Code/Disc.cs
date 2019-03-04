@@ -15,6 +15,7 @@ namespace Assets.Code
 		public DiscMotionBlender Motion;
 		public ParticleSystem TrailFX;
 		public ParticleSystem DeathFX;
+		public Animator Animator;
 
 		public Color SimColor = Color.white;
 		public Color FailColor = Color.red;
@@ -52,10 +53,14 @@ namespace Assets.Code
 			_startingPos = transform.position;
 			Velocity = MaxVelocity;
 			Energy = MaxEnergy;
+
+			Animator.enabled = false;
 		}
 
 		public void Play(Action<Collider2D> collisionCallback, bool simulation)
 		{
+			Animator.enabled = true;
+
 			_isSim = simulation;
 
 			if (simulation) {
@@ -73,6 +78,8 @@ namespace Assets.Code
 		}
 		public void Stop()
 		{
+			Animator.enabled = false;
+
 			if (_isSim) {
 				SimTrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 			}
@@ -113,6 +120,8 @@ namespace Assets.Code
 
 		public void DiscPause()
 		{
+			Animator.enabled = false;
+
 			IsPlaying = false;
 
 			if (_isSim) {
