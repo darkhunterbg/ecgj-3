@@ -41,7 +41,9 @@ namespace Assets.Code
 
 		public void SetPlaceMode(ObstacleType type)
 		{
-			Text.text = $"PLACE {type.ToString().ToUpper()} HERE";
+			string typeText = type == ObstacleType.Obstacle ? "MINES" : "FIGHTERS";
+
+			Text.text = $"PLACE {typeText} HERE";
 		}
 
 		public void SetVisualsVisible(bool visible)

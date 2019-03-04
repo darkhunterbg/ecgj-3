@@ -34,8 +34,8 @@ namespace Assets.Code
 		public int StartingObstacles = 3;
 		public int StartingLasers = 0;
 		public int SimCharges = 0;
-		public bool IsTutorial = false;
 
+		public UIModal ShowModalOnStart;
 
 		public bool CanStartGame => RemainingObstacles == 0 && RemainingLasers == 0;
 
@@ -54,8 +54,8 @@ namespace Assets.Code
 			GameView.Instance.HideAllModals();
 			GameView.Instance.Simulation.Hide();
 
-			if (IsTutorial) {
-				GameView.Instance.TutorialModal.Show();
+			if (ShowModalOnStart != null) {
+				GameView.Instance.ShowModal(ShowModalOnStart);
 				GameView.Instance.ObstacleModule.Hide();
 				GameView.Instance.ToolBar.Hide();
 			}

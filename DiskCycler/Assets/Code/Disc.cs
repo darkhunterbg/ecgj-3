@@ -15,6 +15,7 @@ namespace Assets.Code
 		public DiscMotionBlender Motion;
 		public ParticleSystem TrailFX;
 		public ParticleSystem DeathFX;
+		public ParticleSystem DampenFX;
 		public Animator Animator;
 
 		public Color SimColor = Color.white;
@@ -87,6 +88,8 @@ namespace Assets.Code
 				TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 			}
 
+			DampenFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+
 			IsPlaying = false;
 		}
 		public void ResetDisc()
@@ -94,6 +97,8 @@ namespace Assets.Code
 			IsPlaying = false;
 			Velocity = MaxVelocity;
 			Energy = MaxEnergy;
+
+			DampenFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
 
 			Visuals.enabled = true;
 			DeathFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -133,6 +138,8 @@ namespace Assets.Code
 
 		}
 
+		private bool _dampen = false;
+
 		public void FixedUpdate()
 		{
 			if (!IsPlaying)
@@ -150,8 +157,21 @@ namespace Assets.Code
 				if (Input.GetKey(KeyCode.Space) && Energy > energyCost) {
 					Energy -= energyCost;
 					Velocity = MinVelocity;
+
+					if (!_dampen) {
+						DampenFX.Play();
+					}
+
+					_dampen = true;
+				
 				}
 				else {
+					if (_dampen || DampenFX.isPlaying) {
+						DampenFX.Stop();
+					}
+
+					_dampen = false;
+
 					Energy = Mathf.Min(MaxEnergy, Energy + EnergyRecoverySecond * Time.fixedDeltaTime);
 					Velocity = Mathf.Min(MaxVelocity, Velocity + VelocityRecoveryRate * Time.fixedDeltaTime);
 				}

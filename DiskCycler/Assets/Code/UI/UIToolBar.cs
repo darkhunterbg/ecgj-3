@@ -10,6 +10,7 @@ namespace Assets.Code.UI
 		public Button ObstacleButton;
 		public Button SimulateButton;
 		public Button LaserButton;
+		public Button InfoButton;
 		public Text ObstaclesCountText;
 		public Text LaserCountText;
 
@@ -34,6 +35,7 @@ namespace Assets.Code.UI
 		{
 			GameView.Instance.ObstacleModule.UseObstacle(LaserPrefab);
 		}
+
 
 		public void SimulateClicked()
 		{
