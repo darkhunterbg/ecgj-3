@@ -22,6 +22,7 @@ namespace Assets.Code.UI
 
 		private List<UIModal> _modals = new List<UIModal>();
 
+
 		public void Start()
 		{
 		}
@@ -46,7 +47,15 @@ namespace Assets.Code.UI
 
 		public void NextLevel()
 		{
-			GameController.Instance.EndLevel();
+			GameController.Instance.EndLevel(false);
+		}
+		public void MainMenu()
+		{
+			GameController.Instance.EndLevel(true);
+		}
+		public void Exit()
+		{
+			Application.Quit();
 		}
 	}
 }

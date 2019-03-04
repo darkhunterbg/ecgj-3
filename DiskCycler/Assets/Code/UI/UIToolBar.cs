@@ -35,7 +35,14 @@ namespace Assets.Code.UI
 		{
 			GameView.Instance.ObstacleModule.UseObstacle(LaserPrefab);
 		}
+		public void ShowMenu()
+		{
 
+		}
+		public void CloseMenu()
+		{
+
+		}
 
 		public void SimulateClicked()
 		{

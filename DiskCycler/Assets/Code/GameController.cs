@@ -23,6 +23,8 @@ namespace Assets.Code
 
 		private static GameController _instance;
 
+		public bool MainMenu;
+
 		public void Start()
 		{
 			if (_instance != null) {
@@ -41,6 +43,11 @@ namespace Assets.Code
 					};
 					return;
 				}
+			}
+
+			if (!MainMenu) {
+				_level = -1;
+				return;
 			}
 
 			var existing = Level.Instance;
@@ -65,41 +72,65 @@ namespace Assets.Code
 			return null;
 		}
 
-		public void EndLevel()
+		public void EndLevel(bool mainMenu)
 		{
-			++_level;
+			if (!mainMenu)
+				++_level;
+			else
+				_level = -1;
 
-			if (_level < Levels.Count) {
-
-				var scene = SceneManager.GetSceneAt(0);
-				if (scene.name == "BaseGame") {
-					if (SceneManager.sceneCount > 1) {
-						SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1)).completed += (e) =>
-						{
-							LoadNextLevel();
-						};
-
-					}
-					else
-						LoadNextLevel();
-				}
-				else if (SceneManager.sceneCount > 1) {
-					SceneManager.UnloadSceneAsync(scene).completed += (e) =>
+			var scene = SceneManager.GetSceneAt(0);
+			if (scene.name == "BaseGame") {
+				if (SceneManager.sceneCount > 1) {
+					SceneManager.UnloadSceneAsync(SceneManager.GetSceneAt(1)).completed += (e) =>
 					{
-						LoadNextLevel();
+						if (mainMenu)
+							LoadMainMenu();
+						else
+							LoadNextLevel();
 					};
 
 				}
 				else {
-					LoadNextLevel();
+
+					if (mainMenu)
+						LoadMainMenu();
+					else
+						LoadNextLevel();
 				}
 			}
+			else if (SceneManager.sceneCount > 1) {
+				SceneManager.UnloadSceneAsync(scene).completed += (e) =>
+				{
+					if (mainMenu)
+						LoadMainMenu();
+					else
+						LoadNextLevel();
+				};
+
+			}
+			else {
+				if (mainMenu)
+					LoadMainMenu();
+				else
+					LoadNextLevel();
+			}
+
 		}
 
-		private void LoadNextLevel()
+		public void LoadNextLevel()
 		{
 			LoadingScreen.gameObject.SetActive(true);
 			SceneManager.LoadSceneAsync(Levels[_level], LoadSceneMode.Additive).completed += (e) =>
+			{
+				LoadingScreen.gameObject.SetActive(false);
+			};
+		}
+
+		public void LoadMainMenu()
+		{
+			LoadingScreen.gameObject.SetActive(true);
+			SceneManager.LoadSceneAsync("Main", LoadSceneMode.Additive).completed += (e) =>
 			{
 				LoadingScreen.gameObject.SetActive(false);
 			};
