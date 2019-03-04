@@ -15,6 +15,13 @@ namespace Assets.Code
 		public DiscMotionBlender Motion;
 		public ParticleSystem TrailFX;
 		public ParticleSystem DeathFX;
+
+		public Color SimColor = Color.white;
+		public Color FailColor = Color.red;
+
+		public ParticleSystem SimTrailFX;
+		public ParticleSystem SimDeathFX;
+
 		public SpriteRenderer Visuals;
 
 		private float _elapsed = 0.0f;
@@ -34,6 +41,8 @@ namespace Assets.Code
 		public bool IsSlowdownActive;
 
 
+		private bool _isSim = false;
+
 		public bool IsPlaying { get; private set; } = false;
 
 		private Action<Collider2D> _collisionCallback;
@@ -45,17 +54,32 @@ namespace Assets.Code
 			Energy = MaxEnergy;
 		}
 
-		public void Play(Action<Collider2D> collisionCallback)
+		public void Play(Action<Collider2D> collisionCallback, bool simulation)
 		{
-			TrailFX?.Play();
+			_isSim = simulation;
+
+			if (simulation) {
+				Visuals.color = SimColor;
+				SimTrailFX?.Play();
+
+			}
+			else {
+				Visuals.color = Color.white;
+				TrailFX?.Play();
+			}
 
 			IsPlaying = true;
 			_collisionCallback = collisionCallback;
 		}
 		public void Stop()
 		{
+			if (_isSim) {
+				SimTrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+			}
+			else {
+				TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+			}
 
-			TrailFX?.Stop();
 			IsPlaying = false;
 		}
 		public void ResetDisc()
@@ -65,10 +89,12 @@ namespace Assets.Code
 			Energy = MaxEnergy;
 
 			Visuals.enabled = true;
-			DeathFX?.Stop();
-			DeathFX?.Clear();
-			TrailFX?.Stop();
-			TrailFX?.Clear();
+			DeathFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+			TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+			SimTrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+			SimDeathFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+			Visuals.color = Color.white;
 
 
 			_elapsed = 0;
@@ -77,13 +103,26 @@ namespace Assets.Code
 
 		public void Kill()
 		{
-			IsPlaying = false;
-			Visuals.enabled = false;
-			DeathFX?.Play();
-			TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+			Stop();
+
+			if (!_isSim) {
+				Visuals.enabled = false;
+				DeathFX?.Play();
+			}
 		}
 
+		public void DiscPause()
+		{
+			IsPlaying = false;
 
+			if (_isSim) {
+				SimTrailFX?.Pause();
+			}
+			else {
+				TrailFX?.Pause();
+			}
+
+		}
 
 		public void FixedUpdate()
 		{
@@ -108,6 +147,15 @@ namespace Assets.Code
 					Velocity = Mathf.Min(MaxVelocity, Velocity + VelocityRecoveryRate * Time.fixedDeltaTime);
 				}
 			}
+		}
+
+		private void UseSlowdown()
+		{
+			Velocity = MinVelocity;
+		}
+		private void UsePhasing()
+		{
+
 		}
 
 		public Vector2 GetStepOffset(float time)

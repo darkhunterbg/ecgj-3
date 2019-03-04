@@ -418,7 +418,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadingScreen: {fileID: 3425801547438450987}
   Levels:
-  - {fileID: 102900000, guid: 9ced3b961ffdb414ab1209a3d08fd5c9, type: 3}
-  - {fileID: 102900000, guid: da864ec2ee5cf89449764a6650ac0db8, type: 3}
-  - {fileID: 102900000, guid: c18de09b4eaa0b74f9aae5ec1d2abc7e, type: 3}
-  - {fileID: 102900000, guid: e862b66386d8b0446a871efcdde6bc72, type: 3}
+  - Level1
+  - Level2
+  - Level3
+  - Level4
+  - Level5
+  - Level6
+  - Level7
+  - Level8
+  - Level9

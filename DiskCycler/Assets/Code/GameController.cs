@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -16,7 +16,7 @@ namespace Assets.Code
 		public static GameController Instance => _instance;
 
 		public GameObject LoadingScreen;
-		public List<SceneAsset> Levels = new List<SceneAsset>();
+		public List<string> Levels = new List<string>();
 
 
 		private int _level = 0;
@@ -49,7 +49,7 @@ namespace Assets.Code
 			}
 			else {
 				var s = SceneManager.GetActiveScene().name;
-				int i = Levels.FindIndex(p => p.name == s);
+				int i = Levels.FindIndex(p => p == s);
 				if (i > -1)
 					_level = i;
 			}
@@ -99,7 +99,7 @@ namespace Assets.Code
 		private void LoadNextLevel()
 		{
 			LoadingScreen.gameObject.SetActive(true);
-			SceneManager.LoadSceneAsync(Levels[_level].name, LoadSceneMode.Additive).completed += (e) =>
+			SceneManager.LoadSceneAsync(Levels[_level], LoadSceneMode.Additive).completed += (e) =>
 			{
 				LoadingScreen.gameObject.SetActive(false);
 			};

@@ -35,7 +35,6 @@ namespace Assets.Code
 		public int StartingLasers = 0;
 		public int SimCharges = 0;
 		public bool IsTutorial = false;
-		public bool HasSlowdown = true;
 
 
 		public bool CanStartGame => RemainingObstacles == 0 && RemainingLasers == 0;
@@ -50,11 +49,10 @@ namespace Assets.Code
 			Disc = FindObjectOfType<Disc>();
 			Disc.Init();
 			Disc.ResetDisc();
-			Disc.IsSlowdownActive = HasSlowdown;
 
 
 			GameView.Instance.HideAllModals();
-
+			GameView.Instance.Simulation.Hide();
 
 			if (IsTutorial) {
 				GameView.Instance.TutorialModal.Show();
@@ -86,25 +84,33 @@ namespace Assets.Code
 
 			RunDisc((Collider2D collider) =>
 			{
-
 				if (collider.gameObject.GetComponentInParent<ExitZone>())
 					StartCoroutine(DiscEscaped());
 				else
 					StartCoroutine(GameOver());
-			});
+			}, simulation: false);
 		}
 		public void SimulateDisc()
 		{
 			--SimCharges;
+			GameView.Instance.ToolBar.DisableAll = true;
 			SetLasersRunning(true);
+			GameView.Instance.Simulation.Show();
+			GameView.Instance.Simulation.SetSimulation(UISimulationState.InProgress);
 			RunDisc((Collider2D collider) =>
 			{
-				Setup();
-			});
+				if (collider.gameObject.GetComponentInParent<ExitZone>())
+					StartCoroutine(SimDiscEscaped());
+				else
+					StartCoroutine(SimGameOver());
+			}, simulation: false);
 		}
 
 		private void Setup()
 		{
+			GameView.Instance.Simulation.Hide();
+
+			GameView.Instance.ToolBar.DisableAll = false;
 			SetLasersRunning(false);
 
 			Disc.ResetDisc();
@@ -113,7 +119,36 @@ namespace Assets.Code
 			GameView.Instance.ToolBar.Show();
 		}
 
+		public IEnumerator SimGameOver()
+		{
+			Disc.DiscPause();
+			Disc.Visuals.color = Disc.FailColor;
 
+			GameView.Instance.Simulation.SetSimulation(UISimulationState.Fail);
+
+
+			yield return new WaitForSeconds(1.5f);
+
+			SetLasersRunning(false);
+
+			Setup();
+		}
+
+		public IEnumerator SimDiscEscaped()
+		{
+			Disc.Stop();
+
+			Disc.ResetDisc();
+
+			GameView.Instance.Simulation.SetSimulation(UISimulationState.Success);
+
+
+			yield return new WaitForSeconds(1.5f);
+
+			SetLasersRunning(false);
+
+			Setup();
+		}
 		public IEnumerator GameOver()
 		{
 			Disc.Kill();
@@ -128,21 +163,22 @@ namespace Assets.Code
 		{
 			Disc.Stop();
 
-			yield return new WaitForSeconds(1.0f);
+			yield return null;
+			//yield return new WaitForSeconds(1.0f);
 
 			SetLasersRunning(false);
 
 			GameView.Instance.DiscEscapedModal.Show();
 		}
 
-		private void RunDisc(Action<Collider2D> callback)
+		private void RunDisc(Action<Collider2D> callback, bool simulation)
 		{
 			GameView.Instance.ObstacleModule.Hide();
 			//GameView.Instance.ToolBar.Hide();
 
 
 			Disc.ResetDisc();
-			Disc.Play(callback);
+			Disc.Play(callback, simulation: simulation);
 		}
 
 		public void RestartLevel()
@@ -158,6 +194,6 @@ namespace Assets.Code
 		}
 
 
-		
+
 	}
 }

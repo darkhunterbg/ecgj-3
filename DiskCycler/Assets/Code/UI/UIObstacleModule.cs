@@ -52,7 +52,7 @@ namespace Assets.Code.UI
 		private void SetZones()
 		{
 			foreach (var zone in Level.Instance.PlacableZones) {
-				bool visible = Preview != null && zone.CanPlace(Preview.Type);
+				bool visible = Preview != null && Preview.gameObject.activeInHierarchy && zone.CanPlace(Preview.Type);
 
 				zone.SetVisualsVisible(visible);
 				if (Preview != null) {

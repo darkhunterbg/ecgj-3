@@ -116,7 +116,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 0, y: 124}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1832932764454403794
 MonoBehaviour:
@@ -141,6 +141,7 @@ MonoBehaviour:
   LaserPrefab: {fileID: 1102928190148185592, guid: 69c33308be761e54fb360d81b220eeea,
     type: 3}
   EnergyBar: {fileID: 4908033350608911392}
+  DisableAll: 0
 --- !u!1001 &1059953740475542691
 PrefabInstance:
   m_ObjectHideFlags: 0

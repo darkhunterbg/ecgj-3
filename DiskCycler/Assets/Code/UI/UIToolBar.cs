@@ -44,7 +44,7 @@ namespace Assets.Code.UI
 
 		public void Show()
 		{
-			EnergyBar.gameObject.SetActive(Level.Instance.HasSlowdown);
+			EnergyBar.gameObject.SetActive(Level.Instance.Disc.IsSlowdownActive);
 
 			gameObject.SetActive(true);
 

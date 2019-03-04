@@ -13,10 +13,12 @@ namespace Assets.Code.UI
 
 		public UIObstacleModule ObstacleModule;
 		public UIToolBar ToolBar;
+		public UISimulation Simulation;
 
 		public UIModal DiscDestroyedModal;
 		public UIModal DiscEscapedModal;
 		public UIModal TutorialModal;
+		
 
 		private List<UIModal> _modals = new List<UIModal>();
 
