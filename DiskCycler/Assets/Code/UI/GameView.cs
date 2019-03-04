@@ -17,7 +17,7 @@ namespace Assets.Code.UI
 
 		public UIModal DiscDestroyedModal;
 		public UIModal DiscEscapedModal;
-		public UIModal TutorialModal;
+		public UIModal VictoryModal;
 		
 
 		private List<UIModal> _modals = new List<UIModal>();

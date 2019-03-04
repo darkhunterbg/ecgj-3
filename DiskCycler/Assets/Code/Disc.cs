@@ -42,6 +42,7 @@ namespace Assets.Code
 
 		public bool IsSlowdownActive;
 
+		public bool Immortal;
 
 		private bool _isSim = false;
 
@@ -66,12 +67,12 @@ namespace Assets.Code
 
 			if (simulation) {
 				Visuals.color = SimColor;
-				SimTrailFX?.Play();
+				if (!SimTrailFX.isPlaying) SimTrailFX?.Play();
 
 			}
 			else {
 				Visuals.color = Color.white;
-				TrailFX?.Play();
+				if (!TrailFX.isPlaying) TrailFX?.Play();
 			}
 
 			IsPlaying = true;
@@ -82,13 +83,13 @@ namespace Assets.Code
 			Animator.enabled = false;
 
 			if (_isSim) {
-				SimTrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+				if (SimTrailFX.isPlaying) SimTrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 			}
 			else {
-				TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+				if (TrailFX.isPlaying) TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 			}
 
-			DampenFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+			if (DampenFX.isPlaying) DampenFX?.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 
 			IsPlaying = false;
 		}
@@ -98,13 +99,13 @@ namespace Assets.Code
 			Velocity = MaxVelocity;
 			Energy = MaxEnergy;
 
-			DampenFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+			if (DampenFX.isPlaying) DampenFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
 
 			Visuals.enabled = true;
-			DeathFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
-			TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
-			SimTrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
-			SimDeathFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+			if (DeathFX.isPlaying) DeathFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+			if (TrailFX.isPlaying || TrailFX.isPaused) TrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+			if (SimTrailFX.isPlaying) SimTrailFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+			if (SimDeathFX.isPlaying) SimDeathFX?.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
 
 			Visuals.color = Color.white;
 
@@ -119,7 +120,7 @@ namespace Assets.Code
 
 			if (!_isSim) {
 				Visuals.enabled = false;
-				DeathFX?.Play();
+				if (!DeathFX.isPlaying) DeathFX?.Play();
 			}
 		}
 
@@ -130,15 +131,16 @@ namespace Assets.Code
 			IsPlaying = false;
 
 			if (_isSim) {
-				SimTrailFX?.Pause();
+				if (!SimTrailFX.isPaused) SimTrailFX?.Pause();
 			}
 			else {
-				TrailFX?.Pause();
+				if (!TrailFX.isPaused) TrailFX?.Pause();
 			}
 
 		}
 
 		private bool _dampen = false;
+
 
 		public void FixedUpdate()
 		{
@@ -163,7 +165,7 @@ namespace Assets.Code
 					}
 
 					_dampen = true;
-				
+
 				}
 				else {
 					if (_dampen || DampenFX.isPlaying) {
@@ -196,7 +198,6 @@ namespace Assets.Code
 		public void OnCollision(Collider2D collision)
 		{
 			_collisionCallback?.Invoke(collision);
-			_collisionCallback = null;
 		}
 	}
 }

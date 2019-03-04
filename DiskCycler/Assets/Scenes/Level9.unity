@@ -953,8 +953,40 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.000061035156
       objectReference: {fileID: 0}
+    - target: {fileID: 6579437700136742194, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579437700136742194, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579437700136742194, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579437700136742194, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1a0422a6395c544983b44c0013f72fc, type: 3}
+--- !u!114 &4624635391391376916 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1085183436280503624, guid: f1a0422a6395c544983b44c0013f72fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4624635391391376915}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36e7eb48f306264cbbf35849510e60a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &4809659096081750360
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1205,7 +1237,7 @@ MonoBehaviour:
   StartingObstacles: 5
   StartingLasers: 2
   SimCharges: 1
-  IsTutorial: 0
+  ShowModalOnStart: {fileID: 4624635391391376916}
 --- !u!1 &4809659097707604003
 GameObject:
   m_ObjectHideFlags: 0

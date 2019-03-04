@@ -19,11 +19,15 @@ namespace Assets.Code
 		public List<string> Levels = new List<string>();
 
 
-		private int _level = 0;
+		private  int _level = 0;
 
 		private static GameController _instance;
 
 		public bool MainMenu;
+
+		private static bool _fromMainMenu;
+
+		public bool LastLevel => _level == Levels.Count - 1;
 
 		public void Start()
 		{
@@ -37,6 +41,8 @@ namespace Assets.Code
 					LoadingScreen.gameObject.SetActive(false);
 				}
 				else {
+					_fromMainMenu = MainMenu;
+
 					SceneManager.LoadSceneAsync("BaseGame", LoadSceneMode.Additive).completed += (e) =>
 					{
 						GameObject.Destroy(this.gameObject);
@@ -45,7 +51,8 @@ namespace Assets.Code
 				}
 			}
 
-			if (!MainMenu) {
+			if (_fromMainMenu) {
+				_fromMainMenu = false;
 				_level = -1;
 				return;
 			}

@@ -86,7 +86,7 @@ namespace Assets.Code
 			{
 				if (collider.gameObject.GetComponentInParent<ExitZone>())
 					StartCoroutine(DiscEscaped());
-				else
+				else if (!Disc.Immortal)
 					StartCoroutine(GameOver());
 			}, simulation: false);
 		}
@@ -168,7 +168,10 @@ namespace Assets.Code
 
 			SetLasersRunning(false);
 
-			GameView.Instance.DiscEscapedModal.Show();
+			if (GameController.Instance.LastLevel)
+				GameView.Instance.VictoryModal.Show();
+			else
+				GameView.Instance.DiscEscapedModal.Show();
 		}
 
 		private void RunDisc(Action<Collider2D> callback, bool simulation)
@@ -194,6 +197,15 @@ namespace Assets.Code
 		}
 
 
+		public void Update()
+		{
+			if (Input.GetKeyUp(KeyCode.F1)) {
+				GameController.Instance.EndLevel(false);
+			}
 
+			if (Input.GetKeyUp(KeyCode.F2)) {
+				Disc.Immortal = !Disc.Immortal;
+			}
+		}
 	}
 }

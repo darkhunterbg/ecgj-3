@@ -14288,6 +14288,7 @@ MonoBehaviour:
   EnergyCostSecond: 150
   EnergyRecoverySecond: 25
   IsSlowdownActive: 0
+  Immortal: 0
 --- !u!114 &6632590766504886910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14367,7 +14368,7 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  cullingMode: 0
+  cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
@@ -15127,7 +15128,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 360
+      value: 0
       mode: 0
       spread: 0
       speed:
@@ -23737,26 +23738,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3664004738396103273, guid: f723f41e74e47404998923192f6e104a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664004738396103273, guid: f723f41e74e47404998923192f6e104a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664004738396103273, guid: f723f41e74e47404998923192f6e104a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664004738396103273, guid: f723f41e74e47404998923192f6e104a,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2261499225814410911, guid: f723f41e74e47404998923192f6e104a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23806,6 +23787,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664004738396103273, guid: f723f41e74e47404998923192f6e104a,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664004738396103273, guid: f723f41e74e47404998923192f6e104a,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664004738396103273, guid: f723f41e74e47404998923192f6e104a,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664004738396103273, guid: f723f41e74e47404998923192f6e104a,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f723f41e74e47404998923192f6e104a, type: 3}
