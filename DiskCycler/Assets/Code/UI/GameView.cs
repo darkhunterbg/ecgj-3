@@ -27,6 +27,12 @@ namespace Assets.Code.UI
 		}
 
 
+		public void ShowModal(UIModal modal)
+		{
+			HideAllModals();
+			modal.Show();
+		}
+
 		public void HideAllModals()
 		{
 			foreach (var modal in GetComponentsInChildren<UIModal>(includeInactive: true))
