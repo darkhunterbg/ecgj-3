@@ -1018,7 +1018,8 @@ MonoBehaviour:
   StartingObstacles: 4
   StartingLasers: 0
   SimCharges: 1
-  IsTutorial: 0
+  ShowModalOnStart: {fileID: 0}
+  Music: {fileID: 8300000, guid: 1a39dfd6eb03bbb42b1c9993cb5620df, type: 3}
 --- !u!1 &4809659097707604003
 GameObject:
   m_ObjectHideFlags: 0

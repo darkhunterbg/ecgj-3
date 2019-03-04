@@ -24,6 +24,12 @@ namespace Assets.Code
 		public ParticleSystem SimTrailFX;
 		public ParticleSystem SimDeathFX;
 
+		public AudioClip DestroyedSFX;
+		public AudioClip MovementSFX;
+		public AudioClip DampenedSFX;
+
+		public AudioSource AudioSource;
+
 		public SpriteRenderer Visuals;
 
 		private float _elapsed = 0.0f;
@@ -61,6 +67,9 @@ namespace Assets.Code
 
 		public void Play(Action<Collider2D> collisionCallback, bool simulation)
 		{
+			AudioSource.clip = MovementSFX;
+			AudioSource.Play();
+
 			Animator.enabled = true;
 
 			_isSim = simulation;
@@ -80,6 +89,8 @@ namespace Assets.Code
 		}
 		public void Stop()
 		{
+			AudioSource.Stop();
+
 			Animator.enabled = false;
 
 			if (_isSim) {
@@ -95,6 +106,8 @@ namespace Assets.Code
 		}
 		public void ResetDisc()
 		{
+			AudioSource.Stop();
+
 			IsPlaying = false;
 			Velocity = MaxVelocity;
 			Energy = MaxEnergy;
@@ -122,10 +135,14 @@ namespace Assets.Code
 				Visuals.enabled = false;
 				if (!DeathFX.isPlaying) DeathFX?.Play();
 			}
+
+			AudioSource.PlayOneShot(DestroyedSFX);
 		}
 
 		public void DiscPause()
 		{
+			AudioSource.Stop();
+
 			Animator.enabled = false;
 
 			IsPlaying = false;
@@ -153,7 +170,7 @@ namespace Assets.Code
 
 			transform.position = _startingPos + new Vector3(offset.x, offset.y);
 
-			if (IsPlaying && IsSlowdownActive) {
+			if ( IsSlowdownActive) {
 				float energyCost = EnergyCostSecond * Time.fixedDeltaTime;
 
 				if (Input.GetKey(KeyCode.Space) && Energy > energyCost) {
@@ -162,14 +179,16 @@ namespace Assets.Code
 
 					if (!_dampen) {
 						DampenFX.Play();
+						AudioSource.pitch = 0.5f;
 					}
 
 					_dampen = true;
-
+				
 				}
 				else {
 					if (_dampen || DampenFX.isPlaying) {
 						DampenFX.Stop();
+						AudioSource.pitch = 1.5f;
 					}
 
 					_dampen = false;
@@ -197,6 +216,9 @@ namespace Assets.Code
 
 		public void OnCollision(Collider2D collision)
 		{
+			if (!IsPlaying)
+				return;
+
 			_collisionCallback?.Invoke(collision);
 		}
 	}

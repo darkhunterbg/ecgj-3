@@ -16,6 +16,8 @@ namespace Assets.Code.UI
 		public Color InvalidColor = Color.red;
 		public Color ValidColor = Color.green;
 
+		public AudioClip PlaceObstacleSFX;
+
 		void Start()
 		{
 			Show();
@@ -132,6 +134,8 @@ namespace Assets.Code.UI
 					obstacle.transform.rotation = Preview.transform.rotation;
 					//obstacle.Detector.gameObject.SetActive(false);
 					obstacle.Prefab = _previewPrefab;
+
+					GameController.Instance.AudioSource.PlayOneShot(PlaceObstacleSFX);
 
 					switch (obstacle.Type) {
 						case ObstacleType.Laser: {

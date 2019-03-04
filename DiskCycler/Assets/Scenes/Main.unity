@@ -375,7 +375,7 @@ MonoBehaviour:
   Simulation: {fileID: 0}
   DiscDestroyedModal: {fileID: 0}
   DiscEscapedModal: {fileID: 0}
-  TutorialModal: {fileID: 0}
+  VictoryModal: {fileID: 0}
 --- !u!1 &1334598480
 GameObject:
   m_ObjectHideFlags: 0

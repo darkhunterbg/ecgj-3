@@ -23,11 +23,14 @@ namespace Assets.Code
 
 		private static GameController _instance;
 
+		public AudioClip MainMenuMusic;
 		public bool MainMenu;
 
 		private static bool _fromMainMenu;
 
 		public bool LastLevel => _level == Levels.Count - 1;
+
+		public AudioSource AudioSource;
 
 		public void Start()
 		{
@@ -52,6 +55,8 @@ namespace Assets.Code
 			}
 
 			if (_fromMainMenu) {
+				AudioSource.clip = MainMenuMusic;
+				AudioSource.Play();
 				_fromMainMenu = false;
 				_level = -1;
 				return;
@@ -66,6 +71,7 @@ namespace Assets.Code
 				int i = Levels.FindIndex(p => p == s);
 				if (i > -1)
 					_level = i;
+				existing.Init();
 			}
 		}
 
@@ -131,6 +137,7 @@ namespace Assets.Code
 			SceneManager.LoadSceneAsync(Levels[_level], LoadSceneMode.Additive).completed += (e) =>
 			{
 				LoadingScreen.gameObject.SetActive(false);
+				Level.Instance.Init();
 			};
 		}
 
@@ -140,6 +147,10 @@ namespace Assets.Code
 			SceneManager.LoadSceneAsync("Main", LoadSceneMode.Additive).completed += (e) =>
 			{
 				LoadingScreen.gameObject.SetActive(false);
+
+
+				AudioSource.clip = MainMenuMusic;
+				AudioSource.Play();
 			};
 		}
 	}

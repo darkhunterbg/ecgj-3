@@ -41,6 +41,7 @@ namespace Assets.Code
 
 		public static Level Instance => FindObjectOfType<Level>();
 
+		public AudioClip Music;
 
 		public void Start()
 		{
@@ -62,6 +63,17 @@ namespace Assets.Code
 			else {
 				GameView.Instance.ObstacleModule.Show();
 				GameView.Instance.ToolBar.Show();
+			}
+
+			
+		}
+
+
+		public void Init()
+		{
+			if (Music != null && GameController.Instance.AudioSource.clip != Music) {
+				GameController.Instance.AudioSource.clip = Music;
+				GameController.Instance.AudioSource.Play();
 			}
 		}
 
@@ -199,12 +211,14 @@ namespace Assets.Code
 
 		public void Update()
 		{
-			if (Input.GetKeyUp(KeyCode.F1)) {
-				GameController.Instance.EndLevel(false);
-			}
+			if (Application.isEditor) {
+				if (Input.GetKeyUp(KeyCode.F1)) {
+					GameController.Instance.EndLevel(false);
+				}
 
-			if (Input.GetKeyUp(KeyCode.F2)) {
-				Disc.Immortal = !Disc.Immortal;
+				if (Input.GetKeyUp(KeyCode.F2)) {
+					Disc.Immortal = !Disc.Immortal;
+				}
 			}
 		}
 	}

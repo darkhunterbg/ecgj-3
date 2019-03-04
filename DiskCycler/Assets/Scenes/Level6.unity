@@ -852,21 +852,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 7.5999756
       objectReference: {fileID: 0}
-    - target: {fileID: 3017445762438034382, guid: f1a0422a6395c544983b44c0013f72fc,
-        type: 3}
-      propertyPath: InvalidColor.g
-      value: 0.11784932
-      objectReference: {fileID: 0}
-    - target: {fileID: 3017445762438034382, guid: f1a0422a6395c544983b44c0013f72fc,
-        type: 3}
-      propertyPath: InvalidColor.b
-      value: 0.0141509175
-      objectReference: {fileID: 0}
-    - target: {fileID: 3017445762438034382, guid: f1a0422a6395c544983b44c0013f72fc,
-        type: 3}
-      propertyPath: InvalidColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4587787441480049471, guid: f1a0422a6395c544983b44c0013f72fc,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -887,11 +872,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5773861787060435213, guid: f1a0422a6395c544983b44c0013f72fc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.099609375
-      objectReference: {fileID: 0}
     - target: {fileID: 5078081619529762629, guid: f1a0422a6395c544983b44c0013f72fc,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -907,10 +887,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3017445762438034382, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: InvalidColor.g
+      value: 0.11784932
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017445762438034382, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: InvalidColor.b
+      value: 0.0141509175
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017445762438034382, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: InvalidColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9181911312353124246, guid: f1a0422a6395c544983b44c0013f72fc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.000061035156
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773861787060435213, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.099609375
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1a0422a6395c544983b44c0013f72fc, type: 3}
@@ -1164,7 +1164,8 @@ MonoBehaviour:
   StartingObstacles: 4
   StartingLasers: 1
   SimCharges: 1
-  IsTutorial: 0
+  ShowModalOnStart: {fileID: 0}
+  Music: {fileID: 8300000, guid: 1a39dfd6eb03bbb42b1c9993cb5620df, type: 3}
 --- !u!1 &4809659097707604003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,11 +1255,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2840868431195424210, guid: 4b297633471704348b1639b1979a2eca,
-        type: 3}
-      propertyPath: CanPlaceLasers
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7191175204778589193, guid: 4b297633471704348b1639b1979a2eca,
         type: 3}
       propertyPath: m_Mesh
@@ -1273,6 +1269,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2840868431195424210, guid: 4b297633471704348b1639b1979a2eca,
+        type: 3}
+      propertyPath: CanPlaceLasers
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b297633471704348b1639b1979a2eca, type: 3}

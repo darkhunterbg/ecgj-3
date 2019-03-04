@@ -4803,6 +4803,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShootingInterval: 0.5
   ShootingDuration: 0.4
+  LaserSFX: {fileID: 8300000, guid: 2b6e11c9b570969438524ecf6c456cb2, type: 3}
+  ChargingSFX: {fileID: 8300000, guid: c3af424527490824c94421690dd6219b, type: 3}
   CharngingFX: {fileID: 8414282639365227695}
   Animator: {fileID: 4818055122874775848}
   ShootingFX: {fileID: 9062768785112373903}

@@ -13,6 +13,9 @@ namespace Assets.Code
 		public float ShootingInterval;
 		public float ShootingDuration;
 
+		public AudioClip LaserSFX;
+		public AudioClip ChargingSFX;
+
 		public ParticleSystem CharngingFX;
 		public Animator Animator;
 
@@ -50,8 +53,10 @@ namespace Assets.Code
 			while (true) {
 				yield return new WaitForSeconds(ShootingInterval - fxTime);
 				CharngingFX.Play();
+				GameController.Instance.AudioSource.PlayOneShot(ChargingSFX, 1f);
 				yield return new WaitForSeconds(fxTime);
 				ShootingFX.SetActive(true);
+				GameController.Instance.AudioSource.PlayOneShot(LaserSFX, 1f);			
 				yield return new WaitForSeconds(ShootingDuration);
 				ShootingFX.SetActive(false);
 			}

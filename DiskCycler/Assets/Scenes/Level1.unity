@@ -843,6 +843,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6579437700136742194, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579437700136742194, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579437700136742194, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579437700136742194, guid: f1a0422a6395c544983b44c0013f72fc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1a0422a6395c544983b44c0013f72fc, type: 3}
 --- !u!114 &4624635391391376916 stripped
@@ -1058,6 +1078,7 @@ MonoBehaviour:
   StartingLasers: 0
   SimCharges: 1
   ShowModalOnStart: {fileID: 4624635391391376916}
+  Music: {fileID: 8300000, guid: 1a39dfd6eb03bbb42b1c9993cb5620df, type: 3}
 --- !u!1001 &9100300831712088683
 PrefabInstance:
   m_ObjectHideFlags: 0
