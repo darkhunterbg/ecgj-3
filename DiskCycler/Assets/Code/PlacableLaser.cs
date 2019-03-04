@@ -13,6 +13,9 @@ namespace Assets.Code
 		public float ShootingInterval;
 		public float ShootingDuration;
 
+		public ParticleSystem CharngingFX;
+		public Animator Animator;
+
 		public GameObject ShootingFX;
 
 		private Coroutine _shootingCrt;
@@ -34,17 +37,23 @@ namespace Assets.Code
 				StopCoroutine(_shootingCrt);
 				_shootingCrt = null;
 			}
+
+			CharngingFX.Stop();
 		}
 
 		private IEnumerator Shoot()
 		{
-			yield return new WaitForSeconds(ShootingInterval);
+			ShootingFX.SetActive(false);
+
+			float fxTime = CharngingFX.main.duration + CharngingFX.main.startLifetime.constant;
 
 			while (true) {
+				yield return new WaitForSeconds(ShootingInterval - fxTime);
+				CharngingFX.Play();
+				yield return new WaitForSeconds(fxTime);
 				ShootingFX.SetActive(true);
 				yield return new WaitForSeconds(ShootingDuration);
 				ShootingFX.SetActive(false);
-				yield return new WaitForSeconds(ShootingInterval );
 			}
 		}
 
